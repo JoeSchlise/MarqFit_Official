@@ -2,5 +2,27 @@
     <string name="app_name">MarqFit</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Workout</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Progress</string>
+
+    <!-- Login / Signup -->
+    <string name="login_title">MarqFit Login</string>
+    <string name="login_cta">Log In</string>
+    <string name="signup_link">Sign Up</string>
+
+    <string name="signup_title">Create Account</string>
+    <string name="signup_cta">Sign Up</string>
+    <string name="back_to_login">Back to Login</string>
+
+
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+
+    <!-- Messages -->
+    <string name="fill_all_fields">Please fill in all fields</string>
+    <string name="signup_success">Account created successfully!</string>
+    <string name="signup_failed">Signup failed: %1$s</string>
+    <string name="create_account">Create Account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_out">Sign out</string>
 </resources>

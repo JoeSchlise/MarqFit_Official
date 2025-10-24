@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "904188324487",
+    "project_id": "marqfit-d27e7",
+    "storage_bucket": "marqfit-d27e7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904188324487:android:2358d977dc15f0f3e42622",
+        "android_client_info": {
+          "package_name": "com.example.marqfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904188324487-4jpai5ln96vi1qto6mc1qp0g56md72ec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw-v5Uw5_p6jmUHCd2zzffeEVSCcxvST4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904188324487-4jpai5ln96vi1qto6mc1qp0g56md72ec.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
