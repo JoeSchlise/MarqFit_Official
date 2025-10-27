@@ -68,77 +68,13 @@ public class HomeFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        profileNameInput = binding.getRoot().findViewById(com.example.marqfit.R.id.profileNameInput);
 
-        // Load any saved name when the Home tab appears
-        loadName();
 
-        // Save button
-        View saveBtn = binding.getRoot().findViewById(com.example.marqfit.R.id.saveNameButton);
-        if (saveBtn != null) {
-            saveBtn.setOnClickListener(v -> saveName());
-        }
+
+
     }
 
-    @SuppressLint("SetTextI18n")
-    private void loadName() {
-        if (auth.getCurrentUser() == null) {
-            Toast.makeText(requireContext(), "Please log in first", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        String uid = auth.getCurrentUser().getUid();
-        DocumentReference userDoc = db.collection("users").document(uid);
 
-        userDoc.get()
-                .addOnSuccessListener(snap -> {
-                    if (snap.exists()) {
-                        String name = snap.getString("name");
-                        if (!TextUtils.isEmpty(name)) {
-                            if (profileNameInput != null) profileNameInput.setText(name);
-                            binding.textHome.setText("Welcome, " + name + "!");
-                        }
-                    }
-                })
-                .addOnFailureListener(e ->
-                        Toast.makeText(requireContext(), "Load failed: " + e.getMessage(), Toast.LENGTH_LONG).show()
-                );
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void saveName() {
-        if (auth.getCurrentUser() == null) {
-            Toast.makeText(requireContext(), "Please log in first", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        String name = profileNameInput != null && profileNameInput.getText() != null
-                ? profileNameInput.getText().toString().trim()
-                : "";
-
-        if (TextUtils.isEmpty(name)) {
-            if (profileNameInput != null) {
-                profileNameInput.setError("Enter your name");
-                profileNameInput.requestFocus();
-            }
-            return;
-        }
-
-        String uid = auth.getCurrentUser().getUid();
-        DocumentReference userDoc = db.collection("users").document(uid);
-
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("name", name);
-        updates.put("updatedAt", System.currentTimeMillis());
-
-        // MERGE so we don't wipe other fields you might add later
-        userDoc.set(updates, SetOptions.merge())
-                .addOnSuccessListener(v -> {
-                    Toast.makeText(requireContext(), "Saved!", Toast.LENGTH_SHORT).show();
-                    binding.textHome.setText("Welcome, " + name + "!");
-                })
-                .addOnFailureListener(e ->
-                        Toast.makeText(requireContext(), "Save failed: " + e.getMessage(), Toast.LENGTH_LONG).show()
-                );
-    }
 
     @Override
     public void onDestroyView() {
