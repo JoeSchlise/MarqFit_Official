@@ -48,5 +48,6 @@
     <string name="type_e_g_push_day">Type (e.g., Push Ups)</string>
     <string name="type_workout_name">Type Workout Name</string>
     <string name="minutes">Minutes</string>
+    <string name="busy_meter">Busy Meter</string>
 
 </resources>
