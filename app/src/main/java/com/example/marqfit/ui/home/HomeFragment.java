@@ -61,9 +61,10 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+
+
+
+
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();

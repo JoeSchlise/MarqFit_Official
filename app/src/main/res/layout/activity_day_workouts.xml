@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/workoutsList1"
+        android:layout_width="379dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="8dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/workoutsList"
+        android:layout_width="match_parent"
+        android:layout_height="595dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="12dp" />
+
+    <EditText
+        android:id="@+id/inputName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/type_workout_name"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/inputMinutes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/minutes"
+        android:maxLines="1" />
+
+    <Button
+        android:id="@+id/btnQuickAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add" />
+</LinearLayout>
+
+
+
+
+
