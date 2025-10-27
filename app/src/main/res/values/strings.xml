@@ -27,4 +27,26 @@
     <string name="sign_out">Sign out</string>
     <string name="enter_your_name">Enter your name</string>
     <string name="save_name">Save name</string>
+    <string name="last_workout_none">Last workout: (none)</string>
+    <string name="save_workout">Save workout</string>
+    <string name="duration_minutes">Duration (minutes)</string>
+    <string name="workout_type_e_g_chest_day">Workout type (e.g., Chest Day)</string>
+    <string name="log_a_workout">Log a workout</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="thu">Thu</string>
+    <string name="wed">Wed</string>
+    <string name="tue">Tue</string>
+    <string name="mon">Mon</string>
+    <string name="sun">Sun</string>
+    <string name="this_week">This Week</string>
+    <string name="save_day">Save Day</string>
+    <string name="add_exercise">Add exercise</string>
+    <string name="add">Add</string>
+    <string name="quick_save_workout">Quick Save Workout</string>
+    <string name="min">Min</string>
+    <string name="type_e_g_push_day">Type (e.g., Push Ups)</string>
+    <string name="type_workout_name">Type Workout Name</string>
+    <string name="minutes">Minutes</string>
+
 </resources>

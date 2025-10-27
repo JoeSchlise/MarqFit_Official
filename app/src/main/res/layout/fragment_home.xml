@@ -27,20 +27,5 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_marginTop="16dp"
-        tools:ignore="MissingConstraints">
-
-        <EditText
-            android:id="@+id/profileNameInput"
-            android:hint="@string/enter_your_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/saveNameButton"
-            android:text="@string/save_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" />
-
-    </LinearLayout>
+        tools:ignore="MissingConstraints"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

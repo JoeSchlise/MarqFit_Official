@@ -13,8 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MarqFit">
+        <activity android:name=".ui.workout.DayWorkoutsActivity" android:exported="false" />
+        <activity android:name=".ui.workout.AddWorkoutActivity" android:exported="false" />
 
         <activity android:name=".ui.Signup" android:exported="false" />
+        <activity
+            android:name=".ui.workout.DayPlanActivity"
+            android:exported="false" />
 
         <activity android:name=".ui.Login" android:exported="false" />
         <activity
