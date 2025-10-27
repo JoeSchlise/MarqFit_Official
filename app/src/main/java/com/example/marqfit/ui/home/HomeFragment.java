@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.marqfit.R;
 import com.example.marqfit.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -23,9 +25,14 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        ProgressBar busyMeterBar = binding.busyMeterBar;
+        TextView busyMeterText = binding.busyMeterText;
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        int busyPercent = 65;
+        busyMeterBar.setProgress(busyPercent);
+        busyMeterText.setText("Current: " + busyPercent + "% full");
+
+
         return root;
     }
 
@@ -34,4 +41,6 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
 }
