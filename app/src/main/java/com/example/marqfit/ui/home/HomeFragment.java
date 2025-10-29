@@ -7,6 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.os.Handler;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -85,7 +89,17 @@ public class HomeFragment extends Fragment {
                     .addOnSuccessListener(x -> Toast.makeText(getContext(), "Updated", Toast.LENGTH_SHORT).show())
                     .addOnFailureListener(err -> Toast.makeText(getContext(), "Denied: " + err.getMessage(), Toast.LENGTH_LONG).show());
         });
-
+        final Handler clockHandler = new Handler();
+        final Runnable clockRunnable = new Runnable() {
+            @Override
+            public void run() {
+                String currentTime = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
+                        .format(new Date());
+                binding.clockText.setText(currentTime);
+                clockHandler.postDelayed(this, 1000);
+            }
+        };
+        clockHandler.post(clockRunnable);
         return root;
     }
 

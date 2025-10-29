@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -67,6 +70,7 @@ public class DayPlanActivity extends AppCompatActivity {
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
 
+
         // swipe to delete
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override public boolean onMove(@NonNull RecyclerView r, @NonNull RecyclerView.ViewHolder v, @NonNull RecyclerView.ViewHolder t) { return false; }
@@ -112,6 +116,8 @@ public class DayPlanActivity extends AppCompatActivity {
     private void saveDay() { writeDay(true); }
     private void autoSave() { writeDay(false); }
 
+
+
     private void writeDay(boolean toast) {
         if (uid == null) return;
         List<Map<String, Object>> ex = new ArrayList<>();
@@ -148,6 +154,7 @@ public class DayPlanActivity extends AppCompatActivity {
             View v = LayoutInflater.from(p.getContext()).inflate(R.layout.item_exercise, p, false);
             return new VH(v);
         }
+
 
         @Override public void onBindViewHolder(@NonNull VH h, int pos) {
             ExerciseItem it = data.get(pos);

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.marqfit.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +31,8 @@ public class AddWorkoutActivity extends AppCompatActivity {
                 .collection("days").document(dayIso);
     }
 
-    @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout);
 
@@ -45,9 +47,16 @@ public class AddWorkoutActivity extends AppCompatActivity {
         EditText input = findViewById(R.id.inputName);
         Button save = findViewById(R.id.btnSave);
 
+
+
+
+        // ✅ Handle Save button
         save.setOnClickListener(v -> {
             String name = input.getText() == null ? "" : input.getText().toString().trim();
-            if (TextUtils.isEmpty(name)) { input.setError(getString(R.string.add_exercise)); return; }
+            if (TextUtils.isEmpty(name)) {
+                input.setError(getString(R.string.add_exercise));
+                return;
+            }
 
             // Append to exercises array on the day doc
             Map<String, Object> item = new HashMap<>();
@@ -59,9 +68,12 @@ public class AddWorkoutActivity extends AppCompatActivity {
             data.put("updatedAt", System.currentTimeMillis());
 
             dayDoc().set(data, SetOptions.merge())
-                    .addOnSuccessListener(x -> { Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show(); finish(); })
-                    .addOnFailureListener(e -> Toast.makeText(this, "Save failed: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                    .addOnSuccessListener(x -> {
+                        Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
+                        finish(); // Closes and returns to previous screen
+                    })
+                    .addOnFailureListener(e ->
+                            Toast.makeText(this, "Save failed: " + e.getMessage(), Toast.LENGTH_LONG).show());
         });
     }
 }
-
