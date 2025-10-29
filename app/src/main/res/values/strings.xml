@@ -52,5 +52,6 @@
     <string name="set_busy_0_100">Set busy % (0–100)</string>
     <string name="save_busy">Save Busy %</string>
     <string name="current_50_full">Current: 50% full</string>
+    <string name="textview">TextView</string>
 
 </resources>
