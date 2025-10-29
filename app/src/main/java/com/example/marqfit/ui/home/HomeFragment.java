@@ -60,7 +60,11 @@ public class HomeFragment extends Fragment {
                     Number n = (Number) snap.get("value");
                     int busy = n == null ? 0 : Math.max(0, Math.min(100, n.intValue()));
                     binding.busyMeterBar.setProgress(busy);
-                    binding.busyMeterText.setText("Current: " + busy + "% full");
+                    CharSequence rel = ((Number)snap.get("updatedAt") != null)
+                            ? android.text.format.DateUtils.getRelativeTimeSpanString(((Number)snap.get("updatedAt")).longValue(), System.currentTimeMillis(), android.text.format.DateUtils.MINUTE_IN_MILLIS)
+                            : "unknown";
+                    binding.busyMeterText.setText("Last Updated " + rel + (snap.get("updatedBy") != null ? " by Admin" : ""));
+
                     if (isAdmin) binding.busyInput.setText(String.valueOf(busy));
                 });
 
