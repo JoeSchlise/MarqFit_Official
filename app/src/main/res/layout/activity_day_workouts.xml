@@ -8,6 +8,12 @@
 
 
     <!-- Existing layout below -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:text="@string/textview" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/workoutsList"
         android:layout_width="match_parent"
