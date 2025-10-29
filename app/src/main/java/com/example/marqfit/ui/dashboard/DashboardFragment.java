@@ -43,7 +43,6 @@ public class DashboardFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         auth = FirebaseAuth.getInstance();
 
-        // Wire the 7 day buttons (vertical list) to open the DayWorkouts screen
         int[] ids = new int[] {
                 R.id.daySun, R.id.dayMon, R.id.dayTue,
                 R.id.dayWed, R.id.dayThu, R.id.dayFri, R.id.daySat
@@ -53,8 +52,8 @@ public class DashboardFragment extends Fragment {
         for (int i = 0; i < ids.length; i++) {
             Button b = view.findViewById(ids[i]);
             Date d = week.get(i);
-            String dayIso  = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(d); // e.g., 2025-10-25
-            String weekKey = getIsoWeekKey(d);                                        // e.g., 2025-43
+            String dayIso  = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(d);
+            String weekKey = getIsoWeekKey(d);
             b.setOnClickListener(v -> openDay(weekKey, dayIso));
         }
     }
@@ -70,7 +69,7 @@ public class DashboardFragment extends Fragment {
         startActivity(it);
     }
 
-    // --- Week helpers ---
+
     private List<Date> getCurrentWeekSundayToSaturday() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
