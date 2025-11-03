@@ -50,8 +50,10 @@ dependencies {
     implementation(libs.googleid)
     implementation(libs.activity)
     implementation(libs.firebase.firestore)
+    implementation(libs.gridlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0")
 
 }
