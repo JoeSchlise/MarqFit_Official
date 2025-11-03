@@ -2,7 +2,7 @@
     <string name="app_name">MarqFit</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Workout</string>
-    <string name="title_notifications">Progress</string>
+    <string name="title_notifications">Social</string>
 
     <!-- Login / Signup -->
     <string name="login_title">MarqFit Login</string>
@@ -68,5 +68,8 @@
     <string name="view">View</string>
     <string name="no_workouts">No workouts</string>
     <string name="watch">Watch</string>
+    <string name="name">Name</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="confirmPasswordHint">Email</string>
 
 </resources>
