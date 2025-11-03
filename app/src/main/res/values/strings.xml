@@ -68,5 +68,8 @@
     <string name="view">View</string>
     <string name="no_workouts">No workouts</string>
     <string name="watch">Watch</string>
+    <string name="name">Name</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="confirmPasswordHint">Email</string>
 
 </resources>
