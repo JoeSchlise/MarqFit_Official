@@ -2,7 +2,7 @@
     <string name="app_name">MarqFit</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Workout</string>
-    <string name="title_notifications">Progress</string>
+    <string name="title_notifications">Social</string>
 
     <!-- Login / Signup -->
     <string name="login_title">MarqFit Login</string>
