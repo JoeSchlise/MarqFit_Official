@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.marqfit.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_social"
+        android:name="com.example.marqfit.ui.social.SocialFragment"
+        android:label="Social"
+        tools:layout="@layout/fragment_social" />
 </navigation>

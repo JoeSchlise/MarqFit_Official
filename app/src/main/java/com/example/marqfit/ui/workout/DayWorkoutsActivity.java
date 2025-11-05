@@ -133,8 +133,56 @@ public class DayWorkoutsActivity extends AppCompatActivity {
         dayDoc().set(data, SetOptions.merge())
                 .addOnFailureListener(e ->
                         Toast.makeText(this, "Update failed: " + e.getMessage(), Toast.LENGTH_LONG).show());
+        checkAndPostIfAllComplete();
     }
+    private void checkAndPostIfAllComplete() {
+        if (uid == null) return;
 
+        dayDoc().get().addOnSuccessListener(snapshot -> {
+            if (!snapshot.exists()) return;
+
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> exercises =
+                    (List<Map<String, Object>>) snapshot.get("exercises");
+
+            if (exercises == null || exercises.isEmpty()) return;
+
+            boolean allComplete = true;
+            for (Map<String, Object> ex : exercises) {
+                Boolean done = (Boolean) ex.get("completed");
+                if (done == null || !done) {
+                    allComplete = false;
+                    break;
+                }
+            }
+
+            if (allComplete) {
+                postToSocialFeed(dayIso);
+            }
+        });
+    }
+    private void postToSocialFeed(String dayLabel) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        if (auth.getCurrentUser() == null) return;
+
+        String username = auth.getCurrentUser().getDisplayName();
+        if (username == null || username.isEmpty()) username = "User";
+
+        Map<String, Object> post = new HashMap<>();
+        post.put("username", username);
+        post.put("action", "completed all workouts for " + dayLabel + " 💪");
+        post.put("timestamp", com.google.firebase.Timestamp.now());
+        post.put("userId", auth.getUid());
+
+        db.collection("workout_feed")
+                .add(post)
+                .addOnSuccessListener(doc ->
+                        Toast.makeText(this, "Workout posted to feed!", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, "Error posting to feed", Toast.LENGTH_SHORT).show());
+    }
     private void openYoutubeExternal(@Nullable String urlOrId){
         if (urlOrId == null || urlOrId.trim().isEmpty()) return;
 
