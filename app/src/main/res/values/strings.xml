@@ -72,5 +72,6 @@
     <string name="name">Name</string>
     <string name="confirmPassword">Confirm Password</string>
     <string name="confirmPasswordHint">Email</string>
+    <string name="_0_day_streak_best_0">🔥 0-day streak (best 0)</string>
 
 </resources>

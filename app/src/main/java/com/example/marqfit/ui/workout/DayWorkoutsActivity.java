@@ -67,7 +67,6 @@ public class DayWorkoutsActivity extends AppCompatActivity {
         );
         list.setAdapter(adapter);
 
-        // Add workout screen (your existing picker that saves videoUrl)
         findViewById(R.id.fabAdd).setOnClickListener(v ->
                 startActivity(new Intent(this, AddWorkoutActivity.class)
                         .putExtra("WEEK_KEY", weekKey)
@@ -117,7 +116,11 @@ public class DayWorkoutsActivity extends AppCompatActivity {
 
     private void saveAllExercises() {
         if (uid == null) return;
+
+        // Build exercises payload
         List<Map<String, Object>> ex = new ArrayList<>();
+        boolean allComplete = !adapter.data.isEmpty();
+
         for (WorkoutsAdapter.Item it : adapter.data) {
             Map<String, Object> m = new HashMap<>();
             m.put("name", it.name);
@@ -125,16 +128,27 @@ public class DayWorkoutsActivity extends AppCompatActivity {
             if (it.minutes != null) m.put("minutes", it.minutes);
             if (it.videoUrl != null && !it.videoUrl.trim().isEmpty()) m.put("videoUrl", it.videoUrl);
             ex.add(m);
+
+            if (!it.completed) allComplete = false;
         }
+
         Map<String, Object> data = new HashMap<>();
         data.put("exercises", ex);
         data.put("updatedAt", System.currentTimeMillis());
 
+        boolean finalAllComplete = allComplete;
         dayDoc().set(data, SetOptions.merge())
+                .addOnSuccessListener(v -> {
+                    StreakManager.updateForDate(this, uid, dayIso, finalAllComplete);
+
+                    if (finalAllComplete) {
+                        postToSocialFeed(dayIso);
+                    }
+                })
                 .addOnFailureListener(e ->
                         Toast.makeText(this, "Update failed: " + e.getMessage(), Toast.LENGTH_LONG).show());
-        checkAndPostIfAllComplete();
     }
+
     private void checkAndPostIfAllComplete() {
         if (uid == null) return;
 
