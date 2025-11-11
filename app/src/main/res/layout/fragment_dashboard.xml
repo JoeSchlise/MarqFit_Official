@@ -13,7 +13,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <!-- Main card -->
@@ -27,7 +26,7 @@
             app:cardBackgroundColor="@android:color/white">
 
             <LinearLayout
-                android:layout_width="371dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="18dp">
@@ -52,383 +51,307 @@
                     android:textSize="26sp"
                     android:textStyle="bold" />
 
-                <!-- Streak badge -->
-
-                <!-- 2-column grid of day cards -->
-                <androidx.gridlayout.widget.GridLayout
+                <!-- Vertical list of day rows -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:columnCount="2"
-                    app:rowOrderPreserved="false"
-                    app:useDefaultMargins="false">
+                    android:orientation="vertical">
 
+                    <!-- Reusable style-ish: each row is a CardView with a ConstraintLayout inside -->
                     <!-- Sun -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/daySun"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginBottom="10dp"
                         app:cardCornerRadius="18dp"
-                        app:cardElevation="2dp"
-                        app:layout_columnWeight="1">
-
-                        <LinearLayout
+                        app:cardElevation="2dp">
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical"
                             android:padding="16dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="50dp"
-                                    android:layout_height="32dp"
-                                    android:layout_weight="1"
-                                    android:text="@string/sun"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_pill"
-                                    android:paddingLeft="12dp"
-                                    android:paddingTop="6dp"
-                                    android:paddingRight="12dp"
-                                    android:paddingBottom="6dp"
-                                    android:text="@string/view"
-                                    android:textColor="#5B6472" />
-                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColor="#808995" />
-                        </LinearLayout>
+                                android:text="@string/sun"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_pill"
+                                android:text="@string/view"
+                                android:textColor="#5B6472"
+                                android:paddingLeft="12dp"
+                                android:paddingTop="6dp"
+                                android:paddingRight="12dp"
+                                android:paddingBottom="6dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Mon -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/dayMon"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginBottom="10dp"
                         app:cardCornerRadius="18dp"
-                        app:cardElevation="2dp"
-                        app:layout_columnWeight="1">
-
-                        <LinearLayout
+                        app:cardElevation="2dp">
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
-                            android:orientation="vertical"
                             android:padding="16dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/mon"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_pill"
-                                    android:paddingLeft="12dp"
-                                    android:paddingTop="6dp"
-                                    android:paddingRight="12dp"
-                                    android:paddingBottom="6dp"
-                                    android:text="@string/view"
-                                    android:textColor="#5B6472" />
-                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColor="#808995" />
-                        </LinearLayout>
+                                android:text="@string/mon"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_pill"
+                                android:text="@string/view"
+                                android:textColor="#5B6472"
+                                android:paddingLeft="12dp"
+                                android:paddingTop="6dp"
+                                android:paddingRight="12dp"
+                                android:paddingBottom="6dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Tue -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/dayTue"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginBottom="10dp"
                         app:cardCornerRadius="18dp"
-                        app:cardElevation="2dp"
-                        app:layout_columnWeight="1">
-
-                        <LinearLayout
+                        app:cardElevation="2dp">
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="71dp"
-                            android:orientation="vertical"
+                            android:layout_height="70dp"
                             android:padding="16dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/tue"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_pill"
-                                    android:paddingLeft="12dp"
-                                    android:paddingTop="6dp"
-                                    android:paddingRight="12dp"
-                                    android:paddingBottom="6dp"
-                                    android:text="@string/view"
-                                    android:textColor="#5B6472" />
-                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColor="#808995" />
-                        </LinearLayout>
+                                android:text="@string/tue"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_pill"
+                                android:text="@string/view"
+                                android:textColor="#5B6472"
+                                android:paddingLeft="12dp"
+                                android:paddingTop="6dp"
+                                android:paddingRight="12dp"
+                                android:paddingBottom="6dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Wed -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/dayWed"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginBottom="10dp"
                         app:cardCornerRadius="18dp"
-                        app:cardElevation="2dp"
-                        app:layout_columnWeight="1">
-
-                        <LinearLayout
+                        app:cardElevation="2dp">
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="71dp"
-                            android:orientation="vertical"
+                            android:layout_height="70dp"
                             android:padding="16dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/wed"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_pill"
-                                    android:paddingLeft="12dp"
-                                    android:paddingTop="6dp"
-                                    android:paddingRight="12dp"
-                                    android:paddingBottom="6dp"
-                                    android:text="@string/view"
-                                    android:textColor="#5B6472" />
-                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColor="#808995" />
-                        </LinearLayout>
+                                android:text="@string/wed"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_pill"
+                                android:text="@string/view"
+                                android:textColor="#5B6472"
+                                android:paddingLeft="12dp"
+                                android:paddingTop="6dp"
+                                android:paddingRight="12dp"
+                                android:paddingBottom="6dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Thu -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/dayThu"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginBottom="10dp"
                         app:cardCornerRadius="18dp"
-                        app:cardElevation="2dp"
-                        app:layout_columnWeight="1">
-
-                        <LinearLayout
+                        app:cardElevation="2dp">
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="71dp"
-                            android:orientation="vertical"
+                            android:layout_height="70dp"
                             android:padding="16dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/thu"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_pill"
-                                    android:paddingLeft="12dp"
-                                    android:paddingTop="6dp"
-                                    android:paddingRight="12dp"
-                                    android:paddingBottom="6dp"
-                                    android:text="@string/view"
-                                    android:textColor="#5B6472" />
-                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColor="#808995" />
-                        </LinearLayout>
+                                android:text="@string/thu"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_pill"
+                                android:text="@string/view"
+                                android:textColor="#5B6472"
+                                android:paddingLeft="12dp"
+                                android:paddingTop="6dp"
+                                android:paddingRight="12dp"
+                                android:paddingBottom="6dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Fri -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/dayFri"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginBottom="10dp"
                         app:cardCornerRadius="18dp"
-                        app:cardElevation="2dp"
-                        app:layout_columnWeight="1">
-
-                        <LinearLayout
+                        app:cardElevation="2dp">
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="73dp"
-                            android:orientation="vertical"
+                            android:layout_height="70dp"
                             android:padding="16dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/fri"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_pill"
-                                    android:paddingLeft="12dp"
-                                    android:paddingTop="6dp"
-                                    android:paddingRight="12dp"
-                                    android:paddingBottom="6dp"
-                                    android:text="@string/view"
-                                    android:textColor="#5B6472" />
-                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColor="#808995" />
-                        </LinearLayout>
+                                android:text="@string/fri"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_pill"
+                                android:text="@string/view"
+                                android:textColor="#5B6472"
+                                android:paddingLeft="12dp"
+                                android:paddingTop="6dp"
+                                android:paddingRight="12dp"
+                                android:paddingBottom="6dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Sat -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/daySat"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginBottom="2dp"
                         app:cardCornerRadius="18dp"
-                        app:cardElevation="2dp"
-                        app:layout_columnWeight="1">
-
-                        <LinearLayout
+                        app:cardElevation="2dp">
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
-                            android:orientation="vertical"
                             android:padding="16dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/sat"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_pill"
-                                    android:paddingLeft="12dp"
-                                    android:paddingTop="6dp"
-                                    android:paddingRight="12dp"
-                                    android:paddingBottom="6dp"
-                                    android:text="@string/view"
-                                    android:textColor="#5B6472" />
-                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:textColor="#808995" />
-                        </LinearLayout>
+                                android:text="@string/sat"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_pill"
+                                android:text="@string/view"
+                                android:textColor="#5B6472"
+                                android:paddingLeft="12dp"
+                                android:paddingTop="6dp"
+                                android:paddingRight="12dp"
+                                android:paddingBottom="6dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
-                </androidx.gridlayout.widget.GridLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvStreak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:text="🔥 0-day streak (best 0)"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
 
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/tvStreak"
-            android:layout_width="287dp"
-            android:layout_height="96dp"
-            android:layout_marginBottom="12dp"
-            android:text="@string/_0_day_streak_best_0"
-            android:textSize="24sp"
-            android:textStyle="bold" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
+
 
 
 

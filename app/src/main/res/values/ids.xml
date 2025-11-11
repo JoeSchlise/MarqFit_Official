@@ -3,4 +3,5 @@
     <item name="fabAdd" type="id" />
     <item name="emptyState" type="id" />
     <item name="tvStreak" type="id" />
+    <item name="tplRadio" type="id" />
 </resources>

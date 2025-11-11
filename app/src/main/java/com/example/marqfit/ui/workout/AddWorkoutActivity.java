@@ -1,8 +1,10 @@
 package com.example.marqfit.ui.workout;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,14 +21,15 @@ import com.google.firebase.firestore.SetOptions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
 
 public class AddWorkoutActivity extends AppCompatActivity {
 
@@ -44,50 +47,63 @@ public class AddWorkoutActivity extends AppCompatActivity {
         Template(String n, String t, Integer m, String v){ name=n; tags=t; minutes=m; videoUrl=v; }
     }
 
+    /** MULTI-SELECT adapter (uses CheckBox with id tplCheck in item_workout_template.xml) */
     static class TplAdapter extends RecyclerView.Adapter<TplAdapter.VH> {
-        interface OnPick { void onPick(int pos); }
+        interface OnPick { void onPick(int selectedCount); }
+
         final List<Template> data = new ArrayList<>();
-        int selected = -1; final OnPick onPick;
+        final Set<Integer> selected = new HashSet<>();
+        final OnPick onPick;
+
         TplAdapter(OnPick cb){ onPick = cb; }
 
         static class VH extends RecyclerView.ViewHolder {
-            TextView title, tags; RadioButton radio;
+            TextView title, tags; CheckBox check;
             VH(View v){
                 super(v);
                 title = v.findViewById(R.id.tplTitle);
                 tags  = v.findViewById(R.id.tplTags);
-                radio = v.findViewById(R.id.tplRadio);
+                check = v.findViewById(R.id.tplCheck); // <-- must exist in XML
             }
         }
 
-        @Override public VH onCreateViewHolder(ViewGroup p, int viewType) {
+        @NonNull @Override public VH onCreateViewHolder(@NonNull ViewGroup p, int viewType) {
             View v = LayoutInflater.from(p.getContext())
                     .inflate(R.layout.item_workout_template, p, false);
             return new VH(v);
         }
 
-        @Override public void onBindViewHolder(VH h, int pos) {
+        @Override public void onBindViewHolder(@NonNull VH h, int pos) {
             Template tpl = data.get(pos);
             h.title.setText(tpl.name);
             h.tags.setText(tpl.tags);
-            h.radio.setOnCheckedChangeListener(null);
-            h.radio.setChecked(pos == selected);
 
-            View.OnClickListener pick = v -> {
-                int old = selected;
-                selected = h.getBindingAdapterPosition();
-                if (old != -1) notifyItemChanged(old);
-                notifyItemChanged(selected);
-                if (onPick != null) onPick.onPick(selected);
+            h.check.setOnCheckedChangeListener(null);
+            h.check.setChecked(selected.contains(pos));
+
+            View.OnClickListener toggle = v -> {
+                int p = h.getBindingAdapterPosition();
+                if (p == RecyclerView.NO_POSITION) return;
+                if (selected.contains(p)) selected.remove(p); else selected.add(p);
+                notifyItemChanged(p);
+                if (onPick != null) onPick.onPick(selected.size());
             };
-            h.itemView.setOnClickListener(pick);
-            h.radio.setOnClickListener(pick);
+            h.itemView.setOnClickListener(toggle);
+            h.check.setOnClickListener(toggle);
         }
 
         @Override public int getItemCount(){ return data.size(); }
-        Template getSelected(){ return (selected>=0 && selected<data.size()) ? data.get(selected) : null; }
+
+        List<Template> getSelectedAll(){
+            List<Template> out = new ArrayList<>();
+            for (Integer i : selected) {
+                if (i >= 0 && i < data.size()) out.add(data.get(i));
+            }
+            return out;
+        }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout);
@@ -111,10 +127,10 @@ public class AddWorkoutActivity extends AppCompatActivity {
         MaterialButton btnCancel = findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(v -> finish());
 
-        TplAdapter ad = new TplAdapter(hasSel -> btnAdd.setEnabled(true));
+        TplAdapter ad = new TplAdapter(count -> btnAdd.setEnabled(count > 0));
         rv.setAdapter(ad);
 
-        // Bodyweight
+        // --- Templates ---
         ad.data.add(new Template("Push-Ups (3×12)", "bodyweight • push", 10, "https://youtu.be/IODxDxX7oi4"));
         ad.data.add(new Template("Pull-Ups (3×8)", "bodyweight • pull", 10, "https://youtu.be/eGo4IYlbE5g"));
         ad.data.add(new Template("Dips (3×10)", "bodyweight • push", 10, "https://youtu.be/2z8JmcrW-As"));
@@ -152,23 +168,27 @@ public class AddWorkoutActivity extends AppCompatActivity {
 
         ad.notifyDataSetChanged();
 
-        // Save selection
+        // Save all selected
         btnAdd.setOnClickListener(v -> {
             if (uid == null) {
                 Toast.makeText(this, "Please log in first", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Template chosen = ad.getSelected();
-            if (chosen == null) return;
+            List<Template> chosen = ad.getSelectedAll();
+            if (chosen.isEmpty()) return;
 
-            Map<String, Object> item = new HashMap<>();
-            item.put("name", chosen.name);
-            item.put("completed", false);
-            if (chosen.minutes != null) item.put("minutes", chosen.minutes);
-            if (chosen.videoUrl != null) item.put("videoUrl", chosen.videoUrl);
+            List<Map<String, Object>> payloads = new ArrayList<>();
+            for (Template c : chosen) {
+                Map<String, Object> item = new HashMap<>();
+                item.put("name", c.name);
+                item.put("completed", false);
+                if (c.minutes != null) item.put("minutes", c.minutes);
+                if (c.videoUrl != null) item.put("videoUrl", c.videoUrl);
+                payloads.add(item);
+            }
 
             Map<String, Object> data = new HashMap<>();
-            data.put("exercises", FieldValue.arrayUnion(item));
+            data.put("exercises", FieldValue.arrayUnion(payloads.toArray()));
             data.put("updatedAt", System.currentTimeMillis());
 
             dayDoc().set(data, SetOptions.merge())
@@ -178,5 +198,6 @@ public class AddWorkoutActivity extends AppCompatActivity {
         });
     }
 }
+
 
 
