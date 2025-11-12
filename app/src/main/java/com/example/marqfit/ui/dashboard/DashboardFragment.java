@@ -30,7 +30,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 public class DashboardFragment extends Fragment {
@@ -39,7 +38,7 @@ public class DashboardFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseFirestore db;
     private android.widget.CalendarView calendarView;
-    private final Set<String> datesWithWorkouts = new HashSet<>();
+    private Set<String> datesWithWorkouts = new HashSet<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -63,7 +62,7 @@ public class DashboardFragment extends Fragment {
         // Live streak badge
         if (auth.getCurrentUser() != null) {
             FirebaseFirestore.getInstance()
-                    .collection("users").document(Objects.requireNonNull(auth.getUid()))
+                    .collection("users").document(auth.getUid())
                     .addSnapshotListener((snap, e) -> {
                         if (e != null || snap == null || !snap.exists()) return;
                         Long curL = snap.getLong("currentStreak");
@@ -96,17 +95,20 @@ public class DashboardFragment extends Fragment {
         if (calendarView == null) return;
 
         // Handle date selection
-        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            // Month is 0-indexed, so add 1
-            String dateStr = String.format(Locale.US, "%04d-%02d-%02d", year, month + 1, dayOfMonth);
+        calendarView.setOnDateChangeListener(new android.widget.CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull android.widget.CalendarView view, int year, int month, int dayOfMonth) {
+                // Month is 0-indexed, so add 1
+                String dateStr = String.format(Locale.US, "%04d-%02d-%02d", year, month + 1, dayOfMonth);
 
-            if (auth.getCurrentUser() == null) {
-                Toast.makeText(getContext(), "Please log in first", Toast.LENGTH_SHORT).show();
-                return;
+                if (auth.getCurrentUser() == null) {
+                    Toast.makeText(getContext(), "Please log in first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Show workout history for this date
+                showWorkoutHistoryBottomSheet(dateStr);
             }
-
-            // Show workout history for this date
-            showWorkoutHistoryBottomSheet(dateStr);
         });
     }
 
